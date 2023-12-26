@@ -1,29 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: messkely <messkely@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/19 21:25:37 by messkely          #+#    #+#             */
+/*   Updated: 2023/12/25 15:16:12 by messkely         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int	ft_puthex(unsigned int nb, char typ)
+void	ft_puthex(unsigned int nb, int *count, char typ)
 {
-	int count;
-
-	count = 0;
 	if (nb < 16)
 	{
 		if (typ == 'l')
-			count += ft_putchar("0123456789abcdef"[nb]);
+			ft_putchar("0123456789abcdef"[nb], count);
 		else if (typ == 'u')
-			count += ft_putchar("0123456789ABCDEF"[nb]);
+			ft_putchar("0123456789ABCDEF"[nb], count);
 	}
-	else
+	else if (nb > 9)
 	{
-		count += ft_puthex(nb / 16, typ);
-		count += ft_puthex(nb % 16, typ);
+		ft_puthex((nb / 16), count, typ);
+		ft_puthex((nb % 16), count, typ);
 	}
-	return (count);
 }
-// #include <stdio.h>
-// int main()
-// {
-// 	int p = ft_puthex(200,'l');
-// 	ft_putchar('\n');
-// 	printf("%d\n",p);
-// 	printf("%x\n",200);
-// }
